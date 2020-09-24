@@ -1,61 +1,45 @@
 <template>
   <div>
     <Navbar />
-    <!-- <div class="container">
-      <br />
-      <h3 style="text-align:center">Login</h3>
-      <form @submit.prevent="login">
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <div class="form-group">
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col></b-col>
+        <b-col><h2>Login</h2></b-col>
+        <b-col></b-col>
+      </b-row>
+      <b-row>
+        <b-col></b-col>
+        <b-col>
+          <b-form @submit.prevent="submit">
+            <div>
               <label for="email">Email</label>
-              <input type="email" class="form-control" id="email" v-model="email" />
-                <span v-if="$v.email.required">Email field is required</span>
+              <b-form-input v-model="email" type="email"></b-form-input>
+              <span v-if="$v.email.$error" style="color:red">Email field is required</span>
             </div>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
 
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <div class="form-group">
+            <div>
               <label for="password">Password</label>
-              <input type="password" class="form-control" v-model="password" id="password" />
+              <b-form-input v-model="password" type="password"></b-form-input>
+              <span v-if="$v.password.$error" style="color:red">Password Field is required</span>
             </div>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <button type="submit" class="btn btn-primary btn-block">
-              Login
-            </button>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-        <br />
-        <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-            <router-link to="/">
-              Forgot password ?
-            </router-link>
-          </div>
-          <div class="col-md-2"></div>
-        </div>
-      </form>
-    </div> -->
+            <br />
+            <div>
+              <b-button block variant="info" type="submit">Login</b-button>
+            </div>
+          </b-form>
+          <br>
+          Dont have an Account ? <router-link to="/register">Register</router-link>
+        </b-col>
+        <b-col></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
-import Vuelidate from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+
+import { required } from "vuelidate/lib/validators";
 
 export default {
   components: {
@@ -63,26 +47,27 @@ export default {
   },
 
   data() {
-      return {
-          email: '',
-          password: ''
-      }
+    return {
+      email: "",
+      password: "",
+    };
   },
 
   validations: {
-      email: {
-          required
-      },
-      password: {
-          required
-      }
+    email: {
+      required,
+    },
+    password: {
+      required,
+    },
   },
 
   methods: {
-      login() {
-         console.log($v);
-      }
-  }
+    submit() {
+      this.$v.$touch();
+      
+    },
+  },
 };
 </script>
 
