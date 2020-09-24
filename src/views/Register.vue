@@ -84,47 +84,83 @@
     <br />
     <b-container>
       <h2>Register</h2>
-      <b-form>
+      <b-form @submit.prevent="submit">
         <b-row>
           <b-col>
             <b-form-group id="role" label="Role" label-for="input-1">
-              <b-form-select :options="options"></b-form-select>
+              <b-form-select
+                :options="options"
+                v-model="roleId"
+              ></b-form-select>
+              <span v-if="$v.roleId.$error" style="color: red">
+                The Role field is required</span
+              >
             </b-form-group>
             <div>
               <label for="firstName">First Name</label>
-              <b-form-input type="text"></b-form-input>
+              <b-form-input type="text" v-model="firstName"></b-form-input>
+              <span v-if="$v.firstName.$error" style="color: red">
+                The First Name field is required</span
+              >
             </div>
 
             <div>
               <label for="email">Email</label>
-              <b-form-input type="email"></b-form-input>
+              <b-form-input type="email" v-model="email"></b-form-input>
+              <span v-if="$v.email.$error" style="color: red">
+                The Email field is required</span
+              >
             </div>
 
             <div>
               <label for="password">Password</label>
-              <b-form-input type="password"></b-form-input>
+              <b-form-input type="password" v-model="password"></b-form-input>
+              <span v-if="$v.password.$error" style="color: red">
+                The Password field is required</span
+              >
             </div>
 
             <b-form-group id="role" label="Department" label-for="input-1">
-              <b-form-select :options="departments"></b-form-select>
+              <b-form-select
+                :options="departments"
+                v-model="departmentId"
+              ></b-form-select>
+              <span v-if="$v.departmentId.$error" style="color: red">
+                The Department field is required</span
+              >
             </b-form-group>
           </b-col>
           <b-col>
             <b-form-group id="role" label="Organization" label-for="input-1">
-              <b-form-select :options="organizations"></b-form-select>
+              <b-form-select
+                :options="organizations"
+                v-model="companyId"
+              ></b-form-select>
+              <span v-if="$v.companyId.$error" style="color: red">
+                The Organization field is required</span
+              >
             </b-form-group>
             <div>
               <label for="lastName">Last Name</label>
-              <b-form-input type="text"></b-form-input>
+              <b-form-input type="text" v-model="lastName"></b-form-input>
+              <span v-if="$v.lastName.$error" style="color: red">
+                The Last Name field is required</span
+              >
             </div>
             <div>
               <label for="title">Title</label>
-              <b-form-input type="text"></b-form-input>
+              <b-form-input type="text" v-model="title"></b-form-input>
+              <span v-if="$v.title.$error" style="color: red">
+                The Title field is required</span
+              >
             </div>
 
             <div>
               <label for="phone">Phone</label>
-              <b-form-input type="number"></b-form-input>
+              <b-form-input type="number" v-model="phoneNumber"></b-form-input>
+              <span v-if="$v.phoneNumber.$error" style="color: red">
+                The Phone field is required</span
+              >
             </div>
 
             <div>
@@ -132,20 +168,31 @@
               <b-form-datepicker
                 id="example-datepicker"
                 class="mb-2"
+                v-model="dateOfBirth"
               ></b-form-datepicker>
+              <span v-if="$v.dateOfBirth.$error" style="color: red">
+                The Date of Birth field is required</span
+              >
             </div>
           </b-col>
         </b-row>
         <div>
           <b-row>
             <b-col></b-col>
-            <b-col><b-button block variant="info">Register</b-button></b-col>
+            <b-col
+              ><b-button block variant="info" type="submit"
+                >Register</b-button
+              ></b-col
+            >
             <b-col></b-col>
           </b-row>
-  <br>
+          <br />
           <b-row>
             <b-col></b-col>
-            <b-col>Already have an Account? <router-link to="/login">Login</router-link></b-col>
+            <b-col
+              >Already have an Account?
+              <router-link to="/login">Login</router-link></b-col
+            >
             <b-col></b-col>
           </b-row>
         </div>
@@ -155,19 +202,98 @@
 </template>
 
 <script>
-import Datepicker from "vuejs-datepicker";
+import axios from 'axios';
 import Navbar from "../components/Navbar";
+import { required, minLength, between, email } from "vuelidate/lib/validators";
 export default {
   components: {
-    Datepicker,
     Navbar,
   },
   data() {
     return {
-      options: ["Trainer"],
-      organizations: ["Abeyie Studios"],
-      departments: ["Creators Club"],
+      options: [{value: 1, text: 'Trainer'}],
+      organizations: [{value: 1, text: 'Abeyie Studios'}],
+      departments: [{value: 1, text: 'Createor cluv'}],
+
+      firstName: "",
+      lastName: "",
+      phoneNumber: "",
+      email: "",
+      password: "",
+      title: "",
+      companyId: "",
+      departmentId: "",
+      roleId: "",
+      dateOfBirth: "",
     };
+  },
+  validations: {
+    firstName: {
+      required,
+    },
+    lastName: {
+      required,
+    },
+    email: {
+      required,
+      email,
+    },
+    roleId: {
+      required,
+    },
+    companyId: {
+      required,
+    },
+    password: {
+      required,
+    },
+    departmentId: {
+      required
+    },
+    phoneNumber: {
+      required
+    },
+    title: {
+      required
+    },
+    dateOfBirth: {
+      required
+    }
+  },
+  methods: {
+    submit() {
+      this.$v.$touch();
+      
+      if (this.$v.$invalid) {
+        return;
+      }else{
+        const data = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          dateOfBirth: this.dateOfBirth,
+          phoneNumber: this.phoneNumber,
+          email: this.email,
+          password: this.password,
+          title: this.title,
+          companyId: this.companyId,
+          departmentId: this.departmentId,
+          roleId: this.roleId
+        }
+
+        axios.post('https://troiapi.azurewebsites.net/api/TrainingROI/NewUser', data)
+        .then(response => {
+          console.log(response);
+        }).catch(err => {
+          console.log(err);
+        })
+      }
+    },
+
+  
+  },
+
+  mounted() {
+   
   },
 };
 </script>
