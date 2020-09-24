@@ -198,16 +198,19 @@
         </div>
       </b-form>
     </b-container>
+    <Footer />
   </div>
 </template>
 
 <script>
 import axios from 'axios';
 import Navbar from "../components/Navbar";
+import Footer from '../components/Footer';
 import { required, minLength, between, email } from "vuelidate/lib/validators";
 export default {
   components: {
     Navbar,
+    Footer
   },
   data() {
     return {

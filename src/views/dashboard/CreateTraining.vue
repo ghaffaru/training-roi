@@ -18,6 +18,15 @@
                 <label for="subject">Subject</label>
                  <b-form-input type="text"></b-form-input>
             </div>
+            <div>
+              <label for="example-datepicker">Due Date</label>
+              <b-form-datepicker
+                id="example-datepicker"
+                class="mb-2"
+               
+              ></b-form-datepicker>
+              
+            </div>
           </b-form>
         </div>
       </div>

@@ -33,17 +33,19 @@
         <b-col></b-col>
       </b-row>
     </b-container>
+    <Footer />
   </div>
 </template>
 
 <script>
 import Navbar from "../components/Navbar";
-
+import Footer from '../components/Footer';
 import { required } from "vuelidate/lib/validators";
 
 export default {
   components: {
     Navbar,
+    Footer
   },
 
   data() {
