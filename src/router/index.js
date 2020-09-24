@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Dashboard from '../views/dashboard/Dashboard.vue'
+import CreateTraining from '../views/dashboard/CreateTraining.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -35,6 +37,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
+  },
+  {
+    path: '/create-training',
+    name: 'CreateTraining',
+    component: CreateTraining
   }
 ]
 
