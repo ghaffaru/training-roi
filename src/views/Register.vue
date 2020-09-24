@@ -81,6 +81,76 @@
         </div>
       </form>
     </div> -->
+    <br />
+    <b-container>
+      <h2>Register</h2>
+      <b-form>
+        <b-row>
+          <b-col>
+            <b-form-group id="role" label="Role" label-for="input-1">
+              <b-form-select :options="options"></b-form-select>
+            </b-form-group>
+            <div>
+              <label for="firstName">First Name</label>
+              <b-form-input type="text"></b-form-input>
+            </div>
+
+            <div>
+              <label for="email">Email</label>
+              <b-form-input type="email"></b-form-input>
+            </div>
+
+            <div>
+              <label for="password">Password</label>
+              <b-form-input type="password"></b-form-input>
+            </div>
+
+            <b-form-group id="role" label="Department" label-for="input-1">
+              <b-form-select :options="departments"></b-form-select>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group id="role" label="Organization" label-for="input-1">
+              <b-form-select :options="organizations"></b-form-select>
+            </b-form-group>
+            <div>
+              <label for="lastName">Last Name</label>
+              <b-form-input type="text"></b-form-input>
+            </div>
+            <div>
+              <label for="title">Title</label>
+              <b-form-input type="text"></b-form-input>
+            </div>
+
+            <div>
+              <label for="phone">Phone</label>
+              <b-form-input type="number"></b-form-input>
+            </div>
+
+            <div>
+              <label for="example-datepicker">Date of Birth</label>
+              <b-form-datepicker
+                id="example-datepicker"
+                class="mb-2"
+              ></b-form-datepicker>
+            </div>
+          </b-col>
+        </b-row>
+        <div>
+          <b-row>
+            <b-col></b-col>
+            <b-col><b-button block variant="info">Register</b-button></b-col>
+            <b-col></b-col>
+          </b-row>
+  <br>
+          <b-row>
+            <b-col></b-col>
+            <b-col>Already have an Account? <router-link to="/login">Login</router-link></b-col>
+            <b-col></b-col>
+          </b-row>
+        </div>
+      </b-form>
+    </b-container>
   </div>
 </template>
 
@@ -91,6 +161,13 @@ export default {
   components: {
     Datepicker,
     Navbar,
+  },
+  data() {
+    return {
+      options: ["Trainer"],
+      organizations: ["Abeyie Studios"],
+      departments: ["Creators Club"],
+    };
   },
 };
 </script>
