@@ -83,7 +83,7 @@
     </div> -->
     <br />
     <b-container>
-      <h2>Register</h2>
+      <h2>Register as Training Manager</h2>
       <b-form @submit.prevent="submit">
         <b-row>
           <b-col>
@@ -215,7 +215,7 @@ export default {
   },
   data() {
     return {
-      roles: [{value: 1, text: 'Trainer'}],
+      roles: [{value: 1, text: 'Training Manager'}],
       organizations: [{value: 1, text: 'Abeyie Studios'}],
       departments: [{value: 1, text: 'Createor cluv'}],
 
@@ -300,18 +300,23 @@ export default {
   },
 
   mounted() {
-    axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllRoles')
-    .then(response => {
-      let roles = response.data;
-      roles.forEach(element => {
-        element.value = element.roleId
-        element.text = element.roleName
-      });
-      this.roles = roles
+    
+    if (this.$store.state.user.userId) {
+      this.$router.push('/dashboard')
+    } 
+ 
+    // axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllRoles')
+    // .then(response => {
+    //   let roles = response.data;
+    //   roles.forEach(element => {
+    //     element.value = element.roleId
+    //     element.text = element.roleName
+    //   });
+    //   this.roles = roles
      
-    }).catch(err => {
-      console.log(err.response.data);
-    })
+    // }).catch(err => {
+    //   console.log(err.response.data);
+    // })
 
     axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllCompany')
     .then(response => {

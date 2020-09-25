@@ -104,6 +104,11 @@ https://troiapi.azurewebsites.net/api/TrainingROI/GetUser/${this.email}/${this.p
       }
     },
   },
+  mounted() {
+    if (this.$store.state.user.userId) {
+      this.$router.push('/dashboard')
+    } 
+  }
 };
 </script>
 

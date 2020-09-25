@@ -29,19 +29,19 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <router-link class="nav-link collapsed" to="/create-training" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
+      <li class="nav-item" v-if="getUserInfo.role == 'Training Manager'">
+        <router-link class="nav-link collapsed" to="/add-trainer" data-toggle="collapse" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Create Training</span>
+          <span>Add Trainer</span>
         </router-link>
        
       </li>
 
       <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item" v-if="getUserInfo.role == 'Training Manager'">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>Set Expectations</span>
+          <span>Add Trainees Data</span>
         </a>
         <!-- <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -63,10 +63,10 @@
       </div> -->
 
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
+      <li class="nav-item" v-if="getUserInfo.role == 'Training Manager'">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Take Training</span>
+          <span>Create a Training</span>
         </a>
         <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -109,7 +109,16 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(['getUserInfo'])
+  },
+
+  mounted() {
+    console.log(this.getUserInfo);
+  }
+
 
 }
 </script>

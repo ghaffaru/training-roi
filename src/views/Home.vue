@@ -14,6 +14,12 @@ export default {
   components: {
     Navbar,
     Register
+  },
+
+  mounted() {
+    if (this.$store.state.user.userId) {
+      this.$router.push('/dashboard')
+    } 
   }
 }
 </script>
