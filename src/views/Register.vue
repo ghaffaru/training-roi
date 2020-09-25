@@ -89,7 +89,7 @@
           <b-col>
             <b-form-group id="role" label="Role" label-for="input-1">
               <b-form-select
-                :options="options"
+                :options="roles"
                 v-model="roleId"
               ></b-form-select>
               <span v-if="$v.roleId.$error" style="color: red">
@@ -181,7 +181,7 @@
             <b-col></b-col>
             <b-col
               ><b-button block variant="info" type="submit"
-                >Register</b-button
+                > <b-spinner small type="grow" v-if="loading"></b-spinner> Register</b-button
               ></b-col
             >
             <b-col></b-col>
@@ -206,6 +206,7 @@
 import axios from 'axios';
 import Navbar from "../components/Navbar";
 import Footer from '../components/Footer';
+import swal from 'sweetalert';
 import { required, minLength, between, email } from "vuelidate/lib/validators";
 export default {
   components: {
@@ -214,7 +215,7 @@ export default {
   },
   data() {
     return {
-      options: [{value: 1, text: 'Trainer'}],
+      roles: [{value: 1, text: 'Trainer'}],
       organizations: [{value: 1, text: 'Abeyie Studios'}],
       departments: [{value: 1, text: 'Createor cluv'}],
 
@@ -228,6 +229,8 @@ export default {
       departmentId: "",
       roleId: "",
       dateOfBirth: "",
+
+      loading: false
     };
   },
   validations: {
@@ -265,9 +268,11 @@ export default {
   },
   methods: {
     submit() {
+      this.loading = true
       this.$v.$touch();
       
       if (this.$v.$invalid) {
+        this.loading = false
         return;
       }else{
         const data = {
@@ -282,12 +287,11 @@ export default {
           departmentId: this.departmentId,
           roleId: this.roleId
         }
-
         axios.post('https://troiapi.azurewebsites.net/api/TrainingROI/NewUser', data)
         .then(response => {
-          console.log(response);
+          this.$router.push('/login?new=true')
         }).catch(err => {
-          console.log(err);
+          swal("Oops!", "Something went wrong!", "error");
         })
       }
     },
@@ -296,7 +300,48 @@ export default {
   },
 
   mounted() {
-   
+    axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllRoles')
+    .then(response => {
+      let roles = response.data;
+      roles.forEach(element => {
+        element.value = element.roleId
+        element.text = element.roleName
+      });
+      this.roles = roles
+     
+    }).catch(err => {
+      console.log(err.response.data);
+    })
+
+    axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllCompany')
+    .then(response => {
+      // console.log(response.data);
+      let companies = response.data
+      companies.forEach(element => {
+        element.value = element.companyId
+        element.text = element.name
+      })
+
+      this.organizations = companies;
+      
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    })
+
+    axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllDepartments')
+    .then(response => {
+      let departments = response.data
+      departments.forEach(element => {
+        element.value = element.companyId,
+        element.text = element.name
+      })
+
+      this.departments = departments;
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    })
   },
 };
 </script>
