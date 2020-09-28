@@ -102,6 +102,7 @@ export default {
     Toolbar
   },
   mounted() {
+    
     if (!this.$store.state.user.userId) {
       this.$router.push('/')
     }
