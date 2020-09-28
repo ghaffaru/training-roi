@@ -39,10 +39,10 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item" v-if="getUserInfo.role == 'Training Manager'">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-expanded="true" aria-controls="collapseUtilities">
+        <router-link class="nav-link collapsed" to="/add-trainee" data-toggle="collapse" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
           <span>Add Trainees Data</span>
-        </a>
+        </router-link>
         <!-- <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Custom Utilities:</h6>
@@ -64,10 +64,10 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item" v-if="getUserInfo.role == 'Training Manager'">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" aria-expanded="true" aria-controls="collapsePages">
+        <router-link class="nav-link collapsed" to="/create-training" data-toggle="collapse" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
           <span>Create a Training</span>
-        </a>
+        </router-link>
         <!-- <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Login Screens:</h6>

@@ -7,7 +7,7 @@ import Dashboard from '../views/dashboard/Dashboard.vue'
 import CreateTraining from '../views/dashboard/CreateTraining.vue'
 import AddTrainer from '../views/dashboard/AddTrainer.vue'
 
-
+import AddTrainee from '../views/dashboard/AddTrainee.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -49,6 +49,11 @@ const routes = [
     path: '/add-trainer',
     name: 'AddTrainer',
     component: AddTrainer
+  },
+  {
+    path: '/add-trainee',
+    name: 'AddTrainee',
+    component: AddTrainee
   }
 ]
 
