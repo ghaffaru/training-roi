@@ -129,6 +129,13 @@
                 The Department field is required</span
               >
             </b-form-group>
+
+                <div>
+              <label for="skills">Skills</label>
+              <b-form-input type="text" v-model="skills"></b-form-input>
+             
+            </div>
+
           </b-col>
           <b-col>
             <b-form-group id="role" label="Organization" label-for="input-1">
@@ -174,8 +181,11 @@
                 The Date of Birth field is required</span
               >
             </div>
+
+        
           </b-col>
         </b-row>
+        <br>
         <div>
           <b-row>
             <b-col></b-col>
@@ -229,7 +239,7 @@ export default {
       departmentId: "",
       roleId: "",
       dateOfBirth: "",
-
+      skills: "",
       loading: false
     };
   },
@@ -285,13 +295,23 @@ export default {
           title: this.title,
           companyId: this.companyId,
           departmentId: this.departmentId,
-          roleId: this.roleId
+          roleId: this.roleId,
+          skills: this.skills
         }
         axios.post('https://troiapi.azurewebsites.net/api/TrainingROI/NewUser', data)
         .then(response => {
           this.$router.push('/login?new=true')
         }).catch(err => {
-          swal("Oops!", "Something went wrong!", "error");
+          if (err.response.status == 406) {
+            swal("Oops!", "User with that email already exist", "error");
+  this.loading = false;
+
+          } else {
+  swal("Oops!", "Something went wrong!", "error");
+  this.loading = false;
+          }
+        
+          
         })
       }
     },
