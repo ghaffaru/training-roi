@@ -88,10 +88,7 @@
         <b-row>
           <b-col>
             <b-form-group id="role" label="Role" label-for="input-1">
-              <b-form-select
-                :options="roles"
-                v-model="roleId"
-              ></b-form-select>
+              <b-form-select :options="roles" v-model="roleId"></b-form-select>
               <span v-if="$v.roleId.$error" style="color: red">
                 The Role field is required</span
               >
@@ -130,12 +127,10 @@
               >
             </b-form-group>
 
-                <div>
+            <div>
               <label for="skills">Skills</label>
               <b-form-input type="text" v-model="skills"></b-form-input>
-             
             </div>
-
           </b-col>
           <b-col>
             <b-form-group id="role" label="Organization" label-for="input-1">
@@ -181,17 +176,16 @@
                 The Date of Birth field is required</span
               >
             </div>
-
-        
           </b-col>
         </b-row>
-        <br>
+        <br />
         <div>
           <b-row>
             <b-col></b-col>
             <b-col
-              ><b-button block variant="info" type="submit"
-                > <b-spinner small type="grow" v-if="loading"></b-spinner> Register</b-button
+              ><b-button block variant="info" type="submit">
+                <b-spinner small type="grow" v-if="loading"></b-spinner>
+                Register</b-button
               ></b-col
             >
             <b-col></b-col>
@@ -213,21 +207,21 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import Navbar from "../components/Navbar";
-import Footer from '../components/Footer';
-import swal from 'sweetalert';
+import Footer from "../components/Footer";
+import swal from "sweetalert";
 import { required, minLength, between, email } from "vuelidate/lib/validators";
 export default {
   components: {
     Navbar,
-    Footer
+    Footer,
   },
   data() {
     return {
-      roles: [{value: 1, text: 'Training Manager'}],
-      organizations: [{value: 1, text: 'Abeyie Studios'}],
-      departments: [{value: 1, text: 'Createor cluv'}],
+      roles: [{ value: 1, text: "Training Manager" }],
+      organizations: [{ value: 1, text: "Abeyie Studios" }],
+      departments: [{ value: 1, text: "Createor cluv" }],
 
       firstName: "",
       lastName: "",
@@ -240,7 +234,7 @@ export default {
       roleId: "",
       dateOfBirth: "",
       skills: "",
-      loading: false
+      loading: false,
     };
   },
   validations: {
@@ -264,27 +258,27 @@ export default {
       required,
     },
     departmentId: {
-      required
+      required,
     },
     phoneNumber: {
-      required
+      required,
     },
     title: {
-      required
+      required,
     },
     dateOfBirth: {
-      required
-    }
+      required,
+    },
   },
   methods: {
     submit() {
-      this.loading = true
+      this.loading = true;
       this.$v.$touch();
-      
+
       if (this.$v.$invalid) {
-        this.loading = false
+        this.loading = false;
         return;
-      }else{
+      } else {
         const data = {
           firstName: this.firstName,
           lastName: this.lastName,
@@ -296,35 +290,34 @@ export default {
           companyId: this.companyId,
           departmentId: this.departmentId,
           roleId: this.roleId,
-          skills: this.skills
-        }
-        axios.post('https://troiapi.azurewebsites.net/api/TrainingROI/NewUser', data)
-        .then(response => {
-          this.$router.push('/login?new=true')
-        }).catch(err => {
-          if (err.response.status == 406) {
-            swal("Oops!", "User with that email already exist", "error");
-  this.loading = false;
-
-          } else {
-  swal("Oops!", "Something went wrong!", "error");
-  this.loading = false;
-          }
-        
-          
-        })
+          skills: this.skills,
+        };
+        axios
+          .post(
+            "https://troiapi.azurewebsites.net/api/TrainingROI/NewUser",
+            data
+          )
+          .then((response) => {
+            this.$router.push("/login?new=true");
+          })
+          .catch((err) => {
+            if (err.response.status == 406) {
+              swal("Oops!", "User with that email already exist", "error");
+              this.loading = false;
+            } else {
+              swal("Oops!", "Something went wrong!", "error");
+              this.loading = false;
+            }
+          });
       }
     },
-
-  
   },
 
   mounted() {
-    
     if (this.$store.state.user.userId) {
-      this.$router.push('/dashboard')
-    } 
- 
+      this.$router.push("/dashboard");
+    }
+
     // axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllRoles')
     // .then(response => {
     //   let roles = response.data;
@@ -333,40 +326,42 @@ export default {
     //     element.text = element.roleName
     //   });
     //   this.roles = roles
-     
+
     // }).catch(err => {
     //   console.log(err.response.data);
     // })
 
-    axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllCompany')
-    .then(response => {
-      // console.log(response.data);
-      let companies = response.data
-      companies.forEach(element => {
-        element.value = element.companyId
-        element.text = element.name
+    axios
+      .get("https://troiapi.azurewebsites.net/api/TrainingROI/GetAllCompany")
+      .then((response) => {
+        // console.log(response.data);
+        let companies = response.data;
+        companies.forEach((element) => {
+          element.value = element.companyId;
+          element.text = element.name;
+        });
+
+        this.organizations = companies;
       })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
 
-      this.organizations = companies;
-      
-    })
-    .catch(err => {
-      console.log(err.response.data);
-    })
+    axios
+      .get(
+        "https://troiapi.azurewebsites.net/api/TrainingROI/GetAllDepartments"
+      )
+      .then((response) => {
+        let departments = response.data;
+        departments.forEach((element) => {
+          (element.value = element.companyId), (element.text = element.name);
+        });
 
-    axios.get('https://troiapi.azurewebsites.net/api/TrainingROI/GetAllDepartments')
-    .then(response => {
-      let departments = response.data
-      departments.forEach(element => {
-        element.value = element.companyId,
-        element.text = element.name
+        this.departments = departments;
       })
-
-      this.departments = departments;
-    })
-    .catch(err => {
-      console.log(err.response.data);
-    })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   },
 };
 </script>
