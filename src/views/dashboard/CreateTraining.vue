@@ -10,70 +10,83 @@
           <h2 class="ml-4">Create Training</h2>
 
           <b-form class="ml-4 mr-4">
-            <div>
-              <label for="trainer">Trainer</label>
-              <b-form-select
-                v-model="selected"
-                :options="options"
-              ></b-form-select>
-            </div>
-            <div>
-              <label for="subject">Subject</label>
-              <b-form-input type="text"></b-form-input>
-            </div>
-            <div>
-              <label for="example-datepicker">Due Date</label>
-              <b-form-datepicker
-                id="example-datepicker"
-                class="mb-2"
-              ></b-form-datepicker>
-              <div>
-                <label for="status">Status</label>
-                <b-form-select
-                  v-model="status"
-                  :options="statuses"
-                ></b-form-select>
+            <div class="row">
+              <div class="col-md-6">
+                <div>
+                  <label for="trainer">Trainer</label>
+                  <b-form-select
+                    v-model="selected"
+                    :options="options"
+                  ></b-form-select>
+                </div>
+
+                <div>
+                  <label for="example-datepicker">Due Date</label>
+                  <b-form-datepicker
+                    id="example-datepicker"
+                    class="mb-2"
+                  ></b-form-datepicker>
+                </div>
+
+                <div>
+                  <label for="status">Priority</label>
+                  <b-form-select
+                    v-model="priority"
+                    :options="priorities"
+                  ></b-form-select>
+                </div>
+
+                <div>
+                  <label for="trainingCost">Training cost</label>
+                  <b-form-input type="number"></b-form-input>
+                </div>
               </div>
+              <div class="col-md-6">
+                <div>
+                  <label for="title">Title</label>
+                  <b-form-input type="text"></b-form-input>
+                </div>
 
-              <div>
-                <label for="status">Priority</label>
-                <b-form-select
-                  v-model="priority"
-                  :options="priorities"
-                ></b-form-select>
-              </div>
+                <div>
+                  <label for="status">Status</label>
+                  <b-form-select
+                    v-model="status"
+                    :options="statuses"
+                  ></b-form-select>
+                </div>
 
-              <div>
-                <label for="email">Send Notification Email To</label>
-                <b-form-input v-model="email"></b-form-input>
-              </div>
-
-              <div>
-                <label for="description">Description</label>
-                <b-form-textarea
-                  id="textarea"
-                  v-model="description"
-                  placeholder="Training to improve team work among staff"
-                  rows="3"
-                  max-rows="6"
-                ></b-form-textarea>
-
-                <pre class="mt-3 mb-0">{{ text }}</pre>
-              </div>
-
-              <div>
-                <b-row>
-                  <b-col md="4" class="pb-2"></b-col>
-                  <b-col md="4" class="pb-2"
-                    ><b-button variant="info" block
-                      >Create Training</b-button
-                    ></b-col
-                  >
-                  <b-col md="4" class="pb-2"></b-col>
-                </b-row>
+                <div>
+                  <label for="skills">Skills</label>
+                  <b-form-input v-model="skills"></b-form-input>
+                </div>
               </div>
             </div>
           </b-form>
+
+          <div>
+            <label for="description">Description</label>
+            <b-form-textarea
+              id="textarea"
+              v-model="description"
+              placeholder="Training to improve team work among staff"
+              rows="3"
+              max-rows="6"
+            ></b-form-textarea>
+
+            <pre class="mt-3 mb-0">{{ text }}</pre>
+          </div>
+
+          <div>
+            <b-row>
+              <b-col md="4" class="pb-2"></b-col>
+              <b-col md="4" class="pb-2"
+                ><b-button variant="info" block
+                  >Create Training</b-button
+                ></b-col
+              >
+              <b-col md="4" class="pb-2"></b-col>
+            </b-row>
+          </div>
         </div>
       </div>
     </div>
