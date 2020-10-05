@@ -88,6 +88,15 @@
                     The Organization field is required</span
                   >
                 </b-form-group>
+
+                  <div>
+                  <label for="skills">Skills</label>
+                  <b-form-input
+                    type="text"
+                    v-model="skills"
+                  ></b-form-input>
+                
+                </div>
               </div>
             </div>
 
@@ -139,6 +148,7 @@ export default {
       departmentId: "",
       roleId: "",
       dateOfBirth: "",
+      skills: ""
     };
   },
   validations: {
@@ -185,7 +195,8 @@ export default {
           departmentId: this.departmentId,
           title: this.title,
           roleId: 2,
-          title: this.title
+          title: this.title,
+          skills: this.skills
         };
         if (this.dateOfBirth != "") data['dateOfBirth'] = this.dateOfBirth;
         try {
@@ -205,7 +216,8 @@ export default {
             this.title = "";
             this.companyId = "";
             this.departmentId = "";
-            this.dateOfBirth = ""
+            this.dateOfBirth = "";
+            this.skills = "";
 
           this.$v.$reset();
         } catch (e) {
